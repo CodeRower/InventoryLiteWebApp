@@ -11,6 +11,7 @@
             login: login,
             register: register,
             saveCredentials: saveCredentials,
+            getLoggedInUser:getLoggedInUser,
             removeCredentials: removeCredentials,
             isUserLoggedIn: isUserLoggedIn,
             hasRolePermission: hasRolePermission
@@ -68,6 +69,9 @@
                 $rootScope.repository.loggedUser.roles !== undefined &&
                 $rootScope.repository.loggedUser.roles.indexOf(',' + role + ',') > -1
         )
+        }
+        function getLoggedInUser() {
+            return $rootScope.repository.loggedUser;
         }
         return service;
     }
