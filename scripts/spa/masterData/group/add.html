@@ -1,0 +1,41 @@
+﻿<div id="editGroupWrapper">
+    <hr>
+    <div class="row">
+     
+
+        <!-- edit form column -->
+        <div class="col-xs-12 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-plus"></i>
+                Add <strong>Group</strong>. Make sure you fill all required fields.
+            </div>
+
+            <form class="form-horizontal" role="form" novalidate angular-validator name="addGroupForm" angular-validator-submit="AddGroup()">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">GroupName</label>
+                            <input class="form-control" name="title" type="text" ng-model="group.GroupName"
+                                   validate-on="blur" required required-message="'Group Name is required'">
+                        </div>
+                    </div>
+                </div>
+
+  
+                <br/>
+                <div class="form-group col-xs-4">
+                    <label class="control-label"></label>
+                    <div class="">
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <span></span>
+                        <a class="btn btn-default" ng-href="#/">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+
+   
+</div>

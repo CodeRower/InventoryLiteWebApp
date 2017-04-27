@@ -1,0 +1,109 @@
+﻿<div class="row">
+    <div class="input-group">
+
+        <div class="statementInputSearch">
+            <label class="control-label">Start Date</label>
+            <p class="input-group" style="margin:0px;">
+                <input type="text" class="form-control"
+                       name="dateEntered" datepicker-popup="{{format}}" ng-model="filterSales.FromDate"
+                       is-open="startdatepicker.opened" datepicker-options="dateOptions"
+                       ng-required="true"
+                       datepicker-append-to-body="true"
+                       close-text="Close"
+                       validate-on="blur" required required-message="'Date is required'" />
+                <span class="input-group-btn excludeInPrint">
+                    <button type="button" class="btn btn-default" ng-click="openDatePicker($event, 1)" data-model="filterSales.FromDate"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+
+        <div class="statementInputSearch" style="margin-left:10px; margin-right:10px;">
+            <label class="control-label">End Date</label>
+            <p class="input-group" style="margin:0px;">
+                <input type="text" class="form-control"
+                       name="dateEntered" datepicker-popup="{{format}}" ng-model="filterSales.ToDate"
+                       is-open="enddatepicker.opened" datepicker-options="dateOptions"
+                       ng-required="true"
+                       datepicker-append-to-body="true"
+                       close-text="Close"
+                       validate-on="blur" required required-message="'Date is required'" />
+                <span class="input-group-btn excludeInPrint">
+                    <button type="button" class="btn btn-default" ng-click="openDatePicker($event, 2)" data-model="filterSales.ToDate"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+
+        <div class="statementInputSearch">
+            <label class="control-label">Lot No</label>
+            <select class="form-control dropdown" name="lot" ng-model="filterSales.Lot" ng-options="lot.LotNo for lot in lots track by lot.ID"></select>
+        </div>
+
+        <div class="input-group-btn excludeInPrint" >
+            <button class="btn btn-primary" ng-click="search();"><i class="glyphicon glyphicon-search"></i></button>
+            <button class="btn btn-primary" ng-click="clearSearch();"><i class="glyphicon glyphicon-remove-sign"></i></button>
+            <button class="btn btn-primary" ng-if="Sales.length>0" onclick="window.print()"><i class="glyphicon glyphicon-print"></i></button>
+        </div>
+
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <h1 class="pull-left" style="padding-top: 7.5px;">Sale Report</h1>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="table-responsive">
+                        <table class="table table-condensed shortMargin">
+                            <thead class="panel-heading" style="background: whitesmoke;">
+                                <tr>
+                                    <td class="shortPadding">Date</td>
+                                    <td class="shortPadding">PartyName</td>
+                                    <td class="shortPadding">Dozen</td>
+                                    <td class="shortPadding">CrateSize</td>
+                                    <td class="shortPadding">Qty</td>
+                                    <td class="shortPadding">Rate</td>
+                                    <td class="shortPadding">Amount</td>
+                                    <td class="shortPadding">Store</td>
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="customer in Sales">
+
+                                <td class="shortPadding"><i>{{customer.CreatedDate | date:'mediumDate'}}</i></td>
+                                <td class="shortPadding"><i>{{customer.SubGroupName}}</i></td>
+                                <td class="shortPadding"><i>{{customer.MeasurementUnit}}</i></td>
+                                <td class="shortPadding"><i>{{customer.CrateSize}}</i></td>
+                                <td class="shortPadding"><i>{{customer.Qty}}</i></td>
+                                <td class="shortPadding"><i>{{customer.Rate}}</i></td>
+                                <td class="shortPadding"><i>{{customer.Amount}}</i></td>
+                                <td class="shortPadding"><i>{{customer.Store}}</i></td>
+                            </tr>
+                            <tr ng-if="Sales.length>0">
+                                <td class="shortPadding">Total</td>
+                                <td class="shortPadding"></td>
+                                <td class="shortPadding"></td>
+                                <td class="shortPadding"></td>
+                                <td class="shortPadding">{{TotalQty}}</td>
+                                <td class="shortPadding"></td>
+                                <td class="shortPadding">{{TotalAmount}}</td>
+                                <td class="shortPadding"></td>
+                            </tr>
+                        </table>
+                        <div ng-if="loadingSales">
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4" style=" text-align center;">
+                                <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Sale report...</label>
+                            </div>
+                            <div class="col-xs-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="text-center">
+                <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="search(page)"></custom-pager>
+            </div>
+        </div>
+    </div>
+</div>

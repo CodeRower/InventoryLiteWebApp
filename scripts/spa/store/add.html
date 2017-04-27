@@ -1,0 +1,90 @@
+﻿<div id="editStoreWrapper">
+    <hr>
+    <div class="row">
+
+
+        <!-- edit form column -->
+        <div class="col-xs-12 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-plus"></i>
+                Add <strong>Sub Group</strong>. Make sure you fill all required fields.
+            </div>
+
+
+
+
+            <form class="form-horizontal" role="form" novalidate angular-validator name="addStoreForm" angular-validator-submit="AddStore()">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Name</label>
+                            <input class="form-control" name="title" type="text" ng-model="store.Name"
+                                   validate-on="blur" required required-message="'Sub group Name is required'">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Address Line</label>
+                            <input class="form-control" name="title" type="text" ng-model="store.AddressLine1"
+                                   validate-on="blur" required required-message="'Address Line is required'">
+                            <input class="form-control" name="title" type="text" ng-model="store.AddressLine2">
+                            <input class="form-control" name="title" type="text" ng-model="store.AddressLine3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Phone Number</label>
+                            <input class="form-control" name="title" type="text" ng-model="store.PhoneNumber"
+                                   validate-on="blur" required required-message="'PhoneNumber is required'">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Contact Person</label>
+                            <input class="form-control" name="title" type="text" ng-model="store.ContactPerson"
+                                   validate-on="blur" required required-message="'ContactPerson is required'">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Remark</label>
+                            <input class="form-control" name="title" type="text" ng-model="store.Remark"
+                                   validate-on="blur" required required-message="'Remark is required'">
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <br />
+                <div class="form-group col-xs-4">
+                    <label class="control-label"></label>
+                    <div class="">
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <span></span>
+                        <a class="btn btn-default" ng-href="#/">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+
+
+</div>

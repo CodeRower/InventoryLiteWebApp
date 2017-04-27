@@ -1,0 +1,107 @@
+﻿<div id="editPayment">
+    <div class="row">
+
+        <!-- edit form column -->
+        <div class="col-xs-12 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-plus"></i>
+                Add <strong>Payment</strong>. Make sure you fill all required fields.
+            </div>
+
+            <form class="form-horizontal" role="form" novalidate angular-validator name="addPaymentForm" angular-validator-submit="AddPayment()">
+
+                <div class="form-group">
+                    <div class="row">
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Group Name</label>
+                            <select class="form-control dropdown" name="groupName" ng-model="payment.Group" ng-change="LoadSubGroup(payment.Group)"
+                                    validate-on="change" required required-message="'Group is required'"
+                                    ng-options="group.GroupName for group in groups track by group.ID"></select>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label col-xs-12 col-sm-12" style="text-align:left;padding-left:0;">Name</label>
+                            <select class="form-control dropdown" name="subGroupName" ng-model="payment.SubGroup"
+                                    validate-on="blur" required required-message="'Name is required'"
+                                    ng-options="subGroup.SubGroupName for subGroup in subGroups track by subGroup.ID" style="width:470px;float:left;margin-right:5px;"></select>
+                            <a class="btn btn-success" name="addParty" ng-click="OpenSubGroup()">+  </a>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Date</label>
+                            <p class="input-group">
+                                <input type="text" class="form-control" name="dateReleased" datepicker-popup="{{format}}" ng-model="payment.CreatedDate" is-open="datepicker.opened" datepicker-options="dateOptions" ng-required="true" datepicker-append-to-body="true" close-text="Close"
+                                       validate-on="blur" required required-message="'Date is required'" ng-blur="LoadPaymentDetails()" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div ng-repeat="item in paymentDetails track by $index">
+                    <hr ng-if="!$first" style="border-color: #b9def0;" />
+                    
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-xs-6 col-sm-4">
+                                <label class="control-label">Amount</label>
+                                <input class="form-control" name="amount {{($index + 1)}}" type="text" ng-model="item.Amount"
+                                       validate-on="blur" required required-message="'Amount is required'">
+                            </div>
+
+                            <div class="col-xs-6 col-sm-4">
+                                <label class="control-label">Credit/Debit</label>
+                                <select class="form-control dropdown" name="credit {{($index + 1)}}" ng-model="item.Transaction"
+                                        validate-on="blur" required required-message="'Transaction Type is required'"
+                                        ng-options="transaction.TransactionType for transaction in transactions track by transaction.ID"></select>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-4">
+                                <label class="control-label">Remark</label>
+                                <input class="form-control" name="remark {{($index + 1)}}" type="text" ng-model="item.Remark" style="width:460px;margin-right:5px;display:inline;"
+                                       validate-on="blur" required required-message="'Remark is required'">
+
+                                <a class="btn btn-danger" ng-if="!($first && item.ID == 0)"  ng-click="RemovePaymentDetail($index)"><span class="glyphicon glyphicon-remove"></span></a>
+                            </div>
+                           
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="text-align:center">
+                    <a class="btn btn-default btn-primary btn-group-lg" ng-click="AddPaymentDetails()">Add More Payment</a>
+                </div>
+                                
+                <!--<div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Store</label>
+                            <select class="form-control dropdown" name="store" ng-model="payment.Store"
+                                    validate-on="blur" required required-message="'Store is required'"
+                                    ng-options="store.Name for store in stores track by store.ID"></select>
+                        </div>
+                    </div>
+                </div>-->
+
+
+                <br />
+                <div class="form-group col-xs-4">
+                    <label class="control-label"></label>
+                    <div class="">
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <span></span>
+                        <a class="btn btn-default" ng-href="#/">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

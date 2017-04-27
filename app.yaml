@@ -1,0 +1,24 @@
+application: inventorylite-webapp
+version: 1
+runtime: php55
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /(.+)
+  static_files: \1
+  upload: (.*)
+
+- url: /
+  static_files: index.html
+  upload: (.*)
+  
+- url: /scripts
+  static_dir: scripts
+
+- url: /data
+  static_dir: data
+  application_readable: true
+
+- url: /content
+  static_dir: content

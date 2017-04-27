@@ -1,0 +1,115 @@
+﻿<div id="editGood">
+    <div class="row">
+
+        <!-- edit form column -->
+        <div class="col-xs-12 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-plus"></i>
+                Add <strong>Store Goods</strong>. Make sure you fill all required fields.
+            </div>
+
+            <form class="form-horizontal" role="form" novalidate angular-validator name="addGoodForm" angular-validator-submit="AddGood()">
+
+                <div class="form-group">
+                    <div class="row">
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Date</label>
+                            <p class="input-group">
+                                <input type="text" class="form-control" name="dateEntered" datepicker-popup="{{format}}" ng-model="good.CreatedDate" is-open="datepicker.opened" datepicker-options="dateOptions" ng-required="true" datepicker-append-to-body="true" close-text="Close"
+                                       validate-on="blur" required required-message="'Date is required'" ng-change="LoadLots()"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Lot No</label>
+                            <select class="form-control dropdown" name="lotID" ng-model="good.Lot" ng-blur="LoadGoodDetails()"
+                                    validate-on="blur" required required-message="'Lot No is required'"
+                                    ng-options="lot.LotNo for lot in lots track by lot.ID">
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Total Crate</label>
+                            <input class="form-control" name="totalcrate" type="text" ng-model="good.TotalCrate" ng-disabled="true">
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Total Weight</label>
+                            <input class="form-control" name="weight" type="text" ng-model="good.TotalWeight" ng-disabled="true">
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Total Dozen</label>
+                            <input class="form-control" name="dozen" type="text" ng-model="good.TotalDozen" ng-disabled="true">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div ng-repeat="item in goodDetails track by $index">
+                    <hr ng-if="!$first" style="border-color: #b9def0;"/>
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-xs-6 col-sm-3">
+                                <label class="control-label">Chamber No</label>
+                                <select class="form-control dropdown" name="chamber {{($index + 1)}}" ng-model="item.Chamber"
+                                        validate-on="blur" required required-message="'Chamber No is required'"
+                                        ng-options="chamber.ChamberName for chamber in chambers track by chamber.ID">                                    
+                                </select>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3">
+                                <label class="control-label">Dozen</label>
+                                <select class="form-control dropdown" name="dozen {{($index + 1)}}" ng-model="item.Measurement" ng-change="CalcualteTotalMeasurement()"
+                                        validate-on="blur" required required-message="'Dozen is required'"
+                                        ng-options="measurement.MeasurementUnit for measurement in measurements track by measurement.ID"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div class="col-xs-6 col-sm-3">
+                                <label class="control-label">No Of Crate</label>
+                                <input class="form-control" name="crateNo {{($index + 1)}}" type="text" ng-model="item.NumberOfCrate" ng-blur="CalculateTotalCrate()" 
+                                       ng-change="CalcualteTotalMeasurement()" validate-on="blur" required required-message="'Number of Crate is required'">
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3">
+                                <label class="control-label">Crate Size</label>
+                                <select class="form-control dropdown" name="createSize {{($index + 1)}}" ng-model="item.Crate"
+                                        validate-on="blur" required required-message="'Crate Size is required'"
+                                        ng-options="crate.CrateSize for crate in crates track by crate.ID"></select>
+                            </div>
+                            <a class="btn btn-danger" ng-if="!($first || item.ID > 0)" name="removeIcon" style="margin-top: 27px;" ng-click="RemoveGoodDetail($index)">  <span class="glyphicon glyphicon-remove"></span></a>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:center">
+                    <a class="btn btn-default btn-primary btn-group-lg" ng-click="AddGoodDetails()">Add More Store Goods</a>
+                </div>
+
+                <br />
+                <div class="form-group col-xs-4">
+                    <label class="control-label"></label>
+                    <div class="">
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <span></span>
+                        <a class="btn btn-default" ng-href="#//{{movie.ID}}">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

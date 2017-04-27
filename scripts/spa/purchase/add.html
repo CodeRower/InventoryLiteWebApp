@@ -1,0 +1,259 @@
+﻿<div id="editPurchase">
+    <div class="row">
+
+        <!-- edit form column -->
+        <div class="col-xs-12 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-plus"></i>
+                Add <strong>Purchase</strong>. Make sure you fill all required fields.
+            </div>
+
+            <form class="form-horizontal" role="form" novalidate angular-validator name="addPurchaseForm" angular-validator-submit="AddPurchase()" >
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Date</label>
+                            <p class="input-group">
+                                <input type="text" class="form-control" name="datePurchase" datepicker-popup="{{format}}" ng-model="purchase.PurchaseDate" is-open="datepicker.opened" datepicker-options="dateOptions" ng-required="true" datepicker-append-to-body="true" close-text="Close"
+                                       validate-on="blur" required required-message="'Date Purchase is required'" ng-change="LoadLots()" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Truck No</label>
+                            <input class="form-control" name="truckNo1" type="text" ng-model="purchase.TruckNo" ng-if="!LoadDataField()" required required-message="'Truck No is required'">
+                            <select class=" form-control dropdown" name="truckNo2" ng-model="purchase.Lot" ng-if="LoadDataField()" ng-change="LoadPurchase(purchase.Lot.ID)"
+                                    validate-on="change" required required-message="'Lot No is required'"
+                                    ng-options="lot.LotNo for lot in lots track by lot.ID"></select>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">State</label>
+                            <select class="form-control dropdown" name="state" ng-model="purchase.State" ng-change="LoadCity()"
+                                    validate-on="change" required required-message="'State is required'"
+                                    ng-options="state.StateName for state in states track by state.ID"></select>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">City</label>
+                            <select class="form-control dropdown" name="city" ng-model="purchase.City"
+                                    validate-on="change" required required-message="'City is required'"
+                                    ng-options="city.CityName for city in cities track by city.ID"></select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Truck Owner</label>
+                            <input class="form-control" name="truckOwner" type="text" ng-model="purchase.TruckOwner">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">PAN No</label>
+                            <input class="form-control" name="panNo" type="text" ng-model="purchase.PAN">
+                        </div>
+                        <div class="col-xs-6 col-sm-2">
+                            <label class="control-label">Party Name</label>
+                            <select class="form-control dropdown" name="party" ng-model="purchase.PartySubGroup"
+                                    ng-options="partySubGroup.SubGroupName for partySubGroup in partySubGroups track by partySubGroup.ID"></select>                            
+                        </div>
+                        <div class="col-sm-1" style="padding-left:0;">
+                            <a class="btn btn-success col-sm-1" name="addParty" ng-click="OpenSubGroup()" style="margin-top:27px;width:40px;font-size:15px;">+</a>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Bill No</label>
+                            <input class="form-control" name="billNo" type="number" min="0" ng-model="purchase.BillNo">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-2">
+                            <label class="control-label">Agent Name</label>
+                            <select class="form-control dropdown" name="agent" ng-model="purchase.AgentSubGroup"
+                                    ng-options="agentSubGroup.SubGroupName for agentSubGroup in agentSubGroups track by agentSubGroup.ID"></select>
+                        </div>
+                        <div class="col-sm-1" style="padding:0;">
+                            <a class="btn btn-success" name="addAgentName" ng-click="OpenSubGroup()" style="margin-top:27px;width:40px;font-size:15px;">+</a>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Agent Commission</label>
+                            <input class="form-control" name="agentCommission" type="number" min="0" ng-model="purchase.AgentCommission" ng-blur="CalculatePaymentAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Lunger</label>
+                            <input class="form-control" name="lunger" type="number" min="0" ng-model="purchase.Lunger">
+                        </div>
+                        <div class="col-xs-6 col-sm-3" ng-if="LoadDataField()">
+                            <label class="control-label">Patta</label>
+                            <input class="form-control" name="patta" type="number" min="0" ng-model="purchase.Patta" ng-blur="CalculateWeightForPay()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3" ng-if="LoadDataField()">
+                            <label class="control-label">Dunthal</label>
+                            <input class="form-control" name="dunthal" type="number" min="0" ng-model="purchase.Dunthal" ng-blur="CalculateWeightForPay()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">No Of Crate</label>
+                            <input class="form-control" name="noOfCrate" type="number" min="0" ng-model="purchase.NoOfCrate" ng-change="LoadCrates()" ng-disabled="purchase.ActualWeight > 0"
+                                   ng-blur="CalculateAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Crate Size</label>
+                            <select class="form-control dropdown" name="crateSize" ng-model="purchase.Crate" ng-disabled="!purchase.NoOfCrate>0"
+                                    ng-options="crate.CrateSize for crate in crates track by crate.ID"></select>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Actual Weight</label>
+                            <input class="form-control" name="actualWeight" type="number" min="0" ng-model="purchase.ActualWeight" ng-disabled="purchase.NoOfCrate>0" ng-blur="CalculateAmount()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Net Weight</label>
+                            <input class="form-control" name="netWeight" type="number" min="0" ng-model="purchase.NetWeight" ng-blur="CalculateWeightDiff()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Daala</label>
+                            <input class="form-control" name="daala" type="number" min="0" ng-model="purchase.Daala" ng-blur="CalculateFreightAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Kanta</label>
+                            <input class="form-control" name="kanta" type="number" min="0" ng-model="purchase.Kanta" ng-blur="CalculateFreightAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Advance Freight</label>
+                            <input class="form-control" name="advanceFreight" type="number" min="0" ng-model="purchase.AdvanceFreight" ng-blur="CalculateFreightAmount()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Freight</label>
+                            <input class="form-control" name="freight" type="number" min="0" ng-model="purchase.Freight" ng-blur="CalculateFreightAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Labour</label>
+                            <input class="form-control" name="labour" type="number" min="0" ng-model="purchase.Labour" ng-blur="CalculateFreightAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Insurance</label>
+                            <input class="form-control" name="insurance" type="number" min="0" ng-model="purchase.Insurance" ng-blur="CalculateFreightAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Foam</label>
+                            <input class="form-control" name="foam" type="number" min="0" ng-model="purchase.Foam" ng-blur="CalculateFreightAmount()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Miscellaneous</label>
+                            <input class="form-control" name="miscellaneous" type="number" min="0" ng-model="purchase.Miscellaneous" ng-blur="CalculateFreightAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">INAM</label>
+                            <input class="form-control" name="inam" type="number" min="0" ng-model="purchase.INAM" ng-blur="CalculateFreightAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Less Freight</label>
+                            <input class="form-control" name="lessFreight" type="number" min="0" ng-model="purchase.LessFreight" ng-blur="CalculateFreightAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Mandi Tax</label>
+                            <input class="form-control" name="mandiTax" type="number" min="0" ng-model="purchase.MandiTax" ng-blur="CalculateFreightAmount()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Sub Agent Name</label>
+                            <select class="form-control dropdown" name="subAgent" ng-model="purchase.SubAgentSubGroup"
+                                    ng-options="subAgentSubGroup.SubGroupName for subAgentSubGroup in subAgentSubGroups track by subAgentSubGroup.ID"></select>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Sub Agent Commission</label>
+                            <input class="form-control" name="subAgentCommission" type="number" min="0" ng-model="purchase.SubAgentCommission" ng-blur="CalculatePurchaseAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Remark</label>
+                            <input class="form-control" name="remark" type="text" ng-model="purchase.Remark">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Freight To Pay</label>
+                            <input class="form-control" name="freightAmount" type="number" min="0" ng-model="purchase.FreightAmount" ng-disabled="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="LoadDataField()">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Average Expense</label>
+                            <input class="form-control" name="avgExpense" type="number" min="0" ng-model="purchase.AverageExpense" ng-blur="CalculatePurchaseAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Rate</label>
+                            <input class="form-control" name="rate" type="number" min="0" ng-model="purchase.Rate" ng-blur="CalculateAmount()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Amount</label>
+                            <input class="form-control" name="amount" type="number" min="0" ng-model="purchase.Amount" ng-blur="CalculateRate()">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Payment Amount</label>
+                            <input class="form-control" name="paymentAmount" type="number" min="0" ng-model="purchase.PaymentAmount" ng-disabled="true" ng-change="CalculatePurchaseAmount()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3" ng-if="LoadDataField()">
+                            <label class="control-label">Purchase Cost</label>
+                            <input class="form-control" name="purchaseCost" type="number" min="0" ng-model="purchase.PurchaseCost" ng-disabled="true">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Weight Diff</label>
+                            <input class="form-control" name="weightDiff" type="number" min="0" ng-model="purchase.WeightDiff" ng-disabled="true">
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <label class="control-label">Weight For Pay</label>
+                            <input class="form-control" name="weightForPay" type="number" min="0" ng-model="purchase.WeightForPay" ng-disabled="true">
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <div class="form-group col-xs-4">
+                    <label class="control-label"></label>
+                    <div class="">
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <span></span>
+                        <a class="btn btn-default" ng-href="#/">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

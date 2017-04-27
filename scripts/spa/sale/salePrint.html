@@ -1,0 +1,94 @@
+﻿<div class="row" style="padding-top:30px;">
+    <div class="col-xs-12 personal-info">
+
+        <div class="form-group">
+            <div class="row">
+
+                <div class="col-xs-6 col-sm-4" >
+                    <label class="control-label">Party Name</label>
+                    <input class="form-control" name="partyName"  min="0" ng-model="saleData.SubGroupName" ng-disabled="true">
+                </div>
+
+                <div class="col-xs-6 col-sm-4">
+                    <label class="control-label">Date</label>
+                    <input class="form-control" name="date" ng-model="saleData.CreatedDate" ng-disabled="true">
+                </div>
+
+                <div class="col-xs-6 col-sm-4" style="float:right">
+                    <button class="btn btn-primary excludeInPrint" onclick="window.print()" style="margin-top:15px; float:right;"><i class="glyphicon glyphicon-print"></i></button>  
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-condensed shortMargin">
+                                <thead class="panel-heading" style="background: whitesmoke;">
+                                    <tr>
+                                        <th class="shortPadding">LotNo</th>
+                                        <th class="shortPadding">Dozen</th>
+                                        <th class="shortPadding">Crate</th>
+                                        <th class="shortPadding">Rate</th>
+                                        <th class="shortPadding">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tr ng-repeat="customer in Sales">
+                                    <td class="shortPadding"><i>{{customer.LotNo | date:'mediumDate'}}</i></td>
+                                    <td class="shortPadding"><i>{{customer.Dozen}}</i></td>
+                                    <td class="shortPadding"><i>{{customer.NumberOfCrate}}</i></td>
+                                    <td class="shortPadding"><i>{{customer.Rate}}</i></td>
+                                    <td class="shortPadding"><i>{{customer.Amount}}</i></td>
+                                </tr>
+                            </table>
+                            <div ng-if="loadingPurchases">
+                                <div class="col-xs-4"></div>
+                                <div class="col-xs-4" style="    text-align: center;">
+                                    <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Print data...</label>
+                                </div>
+                                <div class="col-xs-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+
+                <div class="col-xs-6 col-sm-4">
+                    <label class="control-label">Recieved Crate</label>
+                    <input class="form-control" name="partyName" min="0" ng-model="saleData.NumberOfEmptyCrate" ng-disabled="true">
+                </div>
+
+                <div class="col-xs-6 col-sm-4">
+                    <label class="control-label">Received Amount</label>
+                    <input class="form-control" name="date" ng-model="saleData.PaymentReceived" ng-disabled="true">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+
+                <div class="col-xs-6 col-sm-4">
+                    <label class="control-label">Truck No</label>
+                    <input class="form-control" name="partyName" min="0" ng-model="saleData.TruckNo" ng-disabled="true">
+                </div>
+
+                <div class="col-xs-6 col-sm-4">
+                    <label class="control-label">Miscellaneous Expense</label>
+                    <input class="form-control" name="date" ng-model="saleData.MiscellaneousExpense" ng-disabled="true">
+                </div>
+
+            </div>
+        </div>
+
+        </div>
+    </div>

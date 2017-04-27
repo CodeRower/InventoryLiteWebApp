@@ -1,0 +1,89 @@
+﻿<div id="">
+    <hr style="border-color: #b9def0;"/>
+    <div class="row">     
+
+        <!-- edit form column -->
+        <div class="col-xs-12 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-plus"></i>
+                Add <strong>State</strong>. Make sure you fill all required fields.
+            </div>
+
+            <form class="form-horizontal" role="form" novalidate angular-validator name="addStateForm" angular-validator-submit="AddState()">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">State</label>
+                            <input class="form-control" name="title" type="text" ng-model="state.StateName"
+                                   validate-on="blur" required required-message="'State Name is required'">
+                        </div>
+                    </div>
+                </div>
+  
+                <br/>
+                <div class="form-group col-xs-4">
+                    <label class="control-label"></label>
+                    <div class="">
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <span></span>
+                        <a class="btn btn-default" ng-href="#/">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr style="border-color: #b9def0;"/>
+
+    <hr style="border-color: #b9def0;"/>
+    <div class="row">
+
+
+        <!-- edit form column -->
+        <div class="col-xs-12 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-plus"></i>
+                Add <strong>City</strong>. Make sure you fill all required fields.
+            </div>
+
+            <form class="form-horizontal" role="form" novalidate angular-validator name="addCityForm" angular-validator-submit="AddCity()">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">City</label>
+                            <input class="form-control" name="title" type="text" ng-model="city.CityName"
+                                   validate-on="blur" required required-message="'City Name is required'">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">State</label>
+                            <select class="form-control dropdown" name="title" type="text" ng-model="city.State"
+                                   validate-on="change" required required-message="'State is required'"
+                                      ng-options="state.StateName for state in states track by state.ID"
+                                    >
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br />
+                <div class="form-group col-xs-4">
+                    <label class="control-label"></label>
+                    <div class="">
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <span></span>
+                        <a class="btn btn-default" ng-href="#/">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr style="border-color: #b9def0;"/>
+</div>

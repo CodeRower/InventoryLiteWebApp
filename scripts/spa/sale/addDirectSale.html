@@ -1,0 +1,132 @@
+﻿<div id="directSaleEntry">
+    <div class="row">
+
+        <!-- edit form column -->
+        <div class="col-xs-12 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-plus"></i>
+                Add <strong>Direct Sales</strong>. Make sure you fill all required fields.
+            </div>
+
+            <form class="form-horizontal" role="form" novalidate angular-validator name="addDirectSaleForm" angular-validator-submit="AddSale()">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Date</label>
+                            <p class="input-group">
+                                <input type="text" class="form-control" name="dateEntered" datepicker-popup="{{format}}" ng-model="sale.CreatedDate" is-open="datepicker.opened" datepicker-options="dateOptions" ng-required="true" datepicker-append-to-body="true" close-text="Close"
+                                       validate-on="blur" required required-message="'Date is required'" ng-blur="LoadLots()" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Lot No</label>
+                            <select class="form-control dropdown" name="lotNo" ng-model="sale.Lot"
+                                    validate-on="blur" required required-message="'Lot No is required'"
+                                    ng-options="lot.LotNo for lot in lots track by lot.ID"></select>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Group Name</label>
+                            <select class="form-control dropdown" name="groupName" ng-model="sale.Group"
+                                    ng-change="LoadSubGroup(sale.Group)"
+                                    validate-on="change" required required-message="'Group is required'"
+                                    ng-options="group.GroupName for group in groups track by group.ID"></select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label col-xs-12 col-sm-12" style="text-align:left;padding-left:0;">Name</label>
+                            <select class="form-control dropdown" name="subGroupName" ng-model="sale.SubGroup" ng-blur="LoadSaleDetails()"
+                                    validate-on="blur" required required-message="'Name is required'"
+                                    ng-options="subGroup.SubGroupName for subGroup in subGroups track by subGroup.ID" style="width:350px;float:left;margin-right:5px;"></select>
+                            <a class="btn btn-success" name="addParty" ng-click="OpenSubGroup()">+  </a>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Lungar</label>
+                            <input class="form-control" name="lungar" type="text" ng-model="sale.Lungar">
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Weight</label>
+                            <input class="form-control" name="weight" type="text" ng-model="sale.Weight" ng-disabled="sale.NumberOfCrate>0" ng-blur="CalculateDirectSaleAmount()">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">No Of Crate</label>
+                            <input class="form-control" name="noOfCrate" type="text" ng-model="sale.NumberOfCrate" ng-disabled="sale.Weight > 0"
+                                   ng-blur="CalculateDirectSaleAmount()">
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Crate Size</label>
+                            <select class="form-control dropdown" name="crateSize" ng-model="sale.Crate" ng-disabled="!sale.NumberOfCrate>0"
+                                    ng-options="crate.CrateSize for crate in crates track by crate.ID"></select>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Rate</label>
+                            <input class="form-control" name="rate" type="text" ng-model="sale.Rate" ng-blur="CalculateDirectSaleAmount()"
+                                   validate-on="blur" required required-message="'Rate is required'">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Truck No</label>
+                            <input class="form-control" name="truckNo" type="text" ng-model="sale.TruckNo">
+                        </div>
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Miscellaneous Expense</label>
+                            <input class="form-control" name="miscellaneous" type="text" ng-model="sale.MiscellaneousExpense">
+                        </div>
+
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Amount</label>
+                            <input class="form-control" name="amount" type="text" ng-model="sale.Amount" ng-disabled="true"
+                                   validate-on="blur" required required-message="'Amount is required'">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Remark</label>
+                            <input class="form-control" name="remark" type="text" ng-model="sale.Remark">
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <div class="form-group col-xs-4">
+                    <label class="control-label"></label>
+                    <div class="">
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <span></span>
+                        <a class="btn btn-default" ng-href="#//{{movie.ID}}">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

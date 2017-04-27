@@ -1,0 +1,91 @@
+﻿<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <h1 class="pull-left" style="padding-top: 7.5px;">Crate Report</h1>
+            <div class="input-group">
+                <div class="shortInputSearch" style="margin-left:10px; margin-right:10px;">
+                    <label class="control-label">End Date</label>
+                    <p class="input-group" style="margin:0px;">
+                        <input type="text" class="form-control"
+                               name="dateEntered" datepicker-popup="{{format}}" ng-model="filterPurchases.ToDate"
+                               is-open="enddatepicker.opened" datepicker-options="dateOptions"
+                               ng-required="true"
+                               datepicker-append-to-body="true"
+                               close-text="Close"
+                               validate-on="blur" required required-message="'Date is required'" />
+                        <span class="input-group-btn excludeInPrint">
+                            <button type="button" class="btn btn-default" ng-click="openDatePicker($event, 2)" data-model="filterPurchases.ToDate"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <div class="shortInputSearch">
+                    <label class="control-label">Start Date</label>
+                    <p class="input-group" style="margin:0px;">
+                        <input type="text" class="form-control"
+                               name="dateEntered" datepicker-popup="{{format}}" ng-model="filterPurchases.FromDate"
+                               is-open="startdatepicker.opened" datepicker-options="dateOptions"
+                               ng-required="true"
+                               datepicker-append-to-body="true"
+                               close-text="Close"
+                               validate-on="blur" required required-message="'Date is required'" />
+                        <span class="input-group-btn excludeInPrint">
+                            <button type="button" class="btn btn-default" ng-click="openDatePicker($event, 1)" data-model="filterPurchases.FromDate"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <div class="input-group-btn excludeInPrint" style="vertical-align: bottom;">
+                    <button class="btn btn-primary" ng-click="search();"><i class="glyphicon glyphicon-search"></i></button>
+                    <button class="btn btn-primary" ng-click="clearSearch();"><i class="glyphicon glyphicon-remove-sign"></i></button>
+                    <button class="btn btn-primary" ng-if="Purchases.length>0" onclick="window.print()"><i class="glyphicon glyphicon-print"></i></button> 
+                </div>
+            </div>            
+        </div>        
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-condensed shortMargin">
+                            <thead class="panel-heading" style="background: whitesmoke;">
+                                <tr>
+                                    <td class="shortPadding">Date</td>
+                                    <td class="shortPadding">Name</td>
+                                    <td class="shortPadding">Crate Size</td>
+                                    <td class="shortPadding">Received</td>
+                                    <td class="shortPadding">Sent</td>
+
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="customer in Purchases">
+
+                                <td class="shortPadding"><i>{{customer.CreatedDate | date:'mediumDate'}}</i></td>
+                                <td class="shortPadding"><i>{{customer.SubGroup.SubGroupName}}</i></td>
+                                <td class="shortPadding"><i>{{customer.CrateMaster.CrateSize}}</i></td>
+                                <td class="shortPadding"><i>{{customer.TransactionMasterID == 1 ? customer.NumberOfCrate : '--'}}</i></td>
+                                <td class="shortPadding"><i>{{customer.TransactionMasterID == 2 ? customer.NumberOfCrate: '--'}}</i></td>
+                            </tr>
+
+                            <tr ng-if="Purchases.length > 0">
+                                <th class="shortPadding" colspan="3">Total</th>
+                                <td class="shortPadding">{{TotalReceived}}</td>
+                                <td class="shortPadding">{{TotalSent}}</td>
+                            </tr>
+
+                        </table>
+                        <div ng-if="loadingPurchases">
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4" style="    text-align: center;">
+                                <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Purchase report...</label>
+                            </div>
+                            <div class="col-xs-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="text-center">
+                <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="search(page)"></custom-pager>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+﻿<div id="sidebar" class="sidebar-offcanvas">
+    <div class="col-md-12">
+        <h3></h3>
+        <ul class="nav nav-pills nav-stacked">
+            <li class="nav-divider"></li>
+            <li class=""><a ng-href="#/">Home<i class="fa fa-home fa-fw pull-right"></i></a></li>
+            <li class="nav-divider" ng-if="!userData.isUserLoggedIn"></li>
+            <li><a ng-href="#/login" ng-if="!userData.isUserLoggedIn">Login<i class="fa fa-sign-in fa-fw pull-right"></i></a></li>
+
+            <li ng-if = "userData.hasRolePermission('Admin')"><a ng-href="#/register">Add User<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('Admin')"><a ng-href="#/master/addCrate">Crate<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('Admin')"><a ng-href="#/master/addMeasurement">Dozen<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('Admin')"><a ng-href="#/master/addChamber">Chamber<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('Admin')"><a ng-href="#/master/addState">State/City<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('Admin')"><a ng-href="#/master/addGroup">Group<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('Admin')"><a ng-href="#/master/addSubgroup">Sub Group<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('Admin')"><a ng-href="#/master/addStore">Store<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+           
+            <li class="nav-divider" ng-if="userData.isUserLoggedIn"></li>
+
+            <li ng-if = "userData.hasRolePermission('GatePass')"><a ng-href="#/addPurchase">Gate Pass<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('Purchase')"><a ng-href="#/addPurchase/purchase">Purchase<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('Sale')"><a ng-href="#/addDirectSale">Direct Sale<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('Sale')"><a ng-href="#/addSale">Sale<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('CrateEntry')"><a ng-href="#/addCrateEntry">Crate Entry<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('VoucherEntry')"><a ng-href="#/addPayment">Payment<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if = "userData.hasRolePermission('StoreAdmin')"><a ng-href="#/addGoods">Lot Entry<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+
+            <li class="nav-divider" ng-if="userData.isUserLoggedIn"></li>
+            <li ng-if="userData.hasRolePermission('Admin')"><a ng-href="#/reports/purchase">Purchase Report<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if="userData.hasRolePermission('CrateEntry')"><a ng-href="#/reports/crate">Crate Report<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if="userData.hasRolePermission('Sale')"><a ng-href="#/reports/sale">Sale Report<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if="userData.hasRolePermission('Admin')"><a ng-href="#/reports/statements">Statements<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if="userData.hasRolePermission('Admin')"><a ng-href="#reports/balance">Balance Report<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if="userData.hasRolePermission('Admin')"><a ng-href="#/reports/stock">Stock Report<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+            <li ng-if="userData.hasRolePermission('Admin')"><a ng-href="#/reports/payment">Payment Report<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+
+            <li class="nav-divider" ng-if="!userData.isUserLoggedIn"></li>
+            <li><button type="button" class="btn btn-danger btn-sm" ng-click="logout();" ng-if="userData.isUserLoggedIn">Logout<i class="fa fa-sign-out fa-fw pull-right"></i></button></li>
+
+        </ul>
+    </div>
+</div>

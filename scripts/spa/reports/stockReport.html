@@ -1,0 +1,80 @@
+﻿<div class="row"> 
+    <div class="input-group">
+        <div>
+            <div class="statementInputSearch">
+                <label class="control-label">Lot Wise</label>
+                <input type="radio" name="lotName" ng-model="filterStocks.type" value="1" ng-click="ResetFields()" />
+            </div>
+
+            <div class="statementInputSearch" style="margin-left:10px; margin-right:10px;">
+                <label class="control-label">Chamber Wise</label>
+                <input type="radio" name="chamberName" ng-model="filterStocks.type" value="2" ng-click="ResetFields()" />
+            </div>
+        </div>
+        <div class="statementInputSearch">
+            <label class="control-label">Lot No</label>
+            <select class="form-control dropdown" name="lot" ng-model="filterStocks.Lot" ng-disabled="filterStocks.type != 1"
+                    ng-options="lot.LotNo for lot in lots track by lot.ID"></select>
+        </div>
+
+        <div class="statementInputSearch" style="margin-left:10px; margin-right:10px;">
+            <label class="control-label">Chamber No</label>
+            <select class="form-control dropdown" name="chamber" ng-model="filterStocks.Chamber" ng-disabled="filterStocks.type != 2"
+                    ng-options="chamber.ChamberName for chamber in chambers track by chamber.ID"></select>
+        </div>
+        
+        <div class="input-group-btn excludeInPrint">
+            <button class="btn btn-primary" ng-click="search();"><i class="glyphicon glyphicon-search"></i></button>
+            <button class="btn btn-primary" ng-click="clearSearch();"><i class="glyphicon glyphicon-remove-sign"></i></button>
+            <button class="btn btn-primary" ng-if="Stocks.length>0" onclick="window.print()"><i class="glyphicon glyphicon-print"></i></button>
+        </div>
+    </div>  
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <h1 class="pull-left" style="margin:0;">Stock Report</h1>                        
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-12" >
+                            <div class="table-responsive">
+                                <table class="table table-condensed shortMargin">
+                                    <thead class="panel-heading" style="background: whitesmoke;">
+                                        <tr>
+                                            <th class="shortPadding">LotNo</th>
+                                            <th class="shortPadding">Chamber</th>
+                                            <th class="shortPadding">Dozen</th>
+                                            <th class="shortPadding">Crate</th>
+                                        </tr>
+                                    </thead>
+                                    <tr ng-repeat="item in Stocks">
+                                        <td class="shortPadding"><i>{{item.LotNo}}</i></td>
+                                        <td class="shortPadding"><i>{{item.ChamberName}}</i></td>
+                                        <td class="shortPadding"><i>{{item.MeasurementUnit}}</i></td>
+                                        <td class="shortPadding"><i>{{item.NumberOfCrate}}</i></td>
+                                    </tr>
+                                    <tr ng-if="Stocks.length>0">
+                                        <td class="shortPadding">Total</td>
+                                        <td class="shortPadding"></td>
+                                        <td class="shortPadding"></td>
+                                        <td class="shortPadding">{{TotalCrate}}</td>
+                                    </tr>
+                                </table>
+                                
+                                <div ng-if="loadingStocks">
+                                    <div class="col-xs-4"></div>
+                                    <div class="col-xs-4" style="text-align: center;">
+                                        <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Stocks ...</label>
+                                    </div>
+                                    <div class="col-xs-4"></div>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="text-center">
+                <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="search(page)"></custom-pager>
+            </div>
+        </div>
+    </div>
+</div>

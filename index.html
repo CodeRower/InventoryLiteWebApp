@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="InventoryLite">
+<head>
+    <title>InventoryLite</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <!-- build:css assets/css/app.css -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- endbuild -->
+	
+<link href="./content/css/site.css" rel="stylesheet"/>
+<link href="./content/css/bootstrap.css" rel="stylesheet"/>
+<link href="./content/css/bootstrap-theme.css" rel="stylesheet"/>
+<link href="./content/css/font-awesome.css" rel="stylesheet"/>
+<link href="./content/css/morris.css" rel="stylesheet"/>
+<link href="./content/css/toastr.css" rel="stylesheet"/>
+<link href="./content/css/jquery.fancybox.css" rel="stylesheet"/>
+<link href="./content/css/loading-bar.css" rel="stylesheet"/>
+<script>
+ var _templateBase = './scripts';
+ var _apiBase = 'http://coderower-001-site1.htempurl.com';
+</script>
+<script src="./scripts/vendors/modernizr.js"></script>
+	
+	
+</head>
+<body ng-controller="rootCtrl">
+  <top-bar></top-bar>
+    <div class="row-offcanvas row-offcanvas-left">
+        <side-bar></side-bar>
+        <div id="main">
+            <div class="col-md-12">
+                <p class="visible-xs excludeInPrint">
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                </p>
+                <div class="page {{ pageClass }}" ng-view></div>
+            </div>
+        </div>
+	 </div>
+	</body>
+    <!-- build:js scripts/vendor.js -->
+   <!-- <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script> -->
+    <!-- <script src="../bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../bower_components/angular-aria/angular-aria.js"></script>
+	
+    <script src="../bower_components/angular-material/angular-material.js"></script>-->
+	<!--
+<script src="./scripts/vendors/jquery.js"></script>
+<script src="./scripts/vendors/bootstrap.js"></script>
+<script src="./scripts/vendors/toastr.js"></script> -->
+<!--<script src="./scripts/vendors/jquery.raty.js"></script>
+
+	
+<!--<script src="./scripts/vendors/respond.src.js"></script>-->
+<script src="./scripts/vendors/angular.js"></script>
+<script src="./scripts/vendors/angular-route.js"></script>
+<script src="./scripts/vendors/angular-cookies.js"></script>
+<script src="./scripts/vendors/angular-validator.js"></script>
+<script src="./scripts/vendors/angular-base64.js"></script>
+<script src="./scripts/vendors/angular-file-upload.js"></script>
+<!--<script src="./scripts/vendors/angucomplete-alt.min.js"></script>
+
+<script src="./scripts/vendors/ui-bootstrap-tpls-0.13.1.js"></script>
+
+<script src="./scripts/vendors/underscore.js"></script>
+<script src="./scripts/vendors/raphael.js"></script>
+<script src="./scripts/vendors/morris.js"></script>
+<script src="./scripts/vendors/jquery.fancybox.js"></script>
+<script src="./scripts/vendors/jquery.fancybox-media.js"></script>-->
+<script src="./scripts/vendors/loading-bar.js"></script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    <!-- endbuild -->
+    <!-- build:app scripts/app.js -->
+    
+    
+<script src="./scripts/spa/modules/common.core.js"></script>
+<script src="./scripts/spa/modules/common.ui.js"></script>
+<script src="./scripts/app.js"></script>
+<script src="./scripts/spa/services/apiService.js"></script>
+<script src="./scripts/spa/services/notificationService.js"></script>
+<script src="./scripts/spa/services/membershipService.js"></script>
+<script src="./scripts/spa/services/fileUploadService.js"></script>
+<script src="./scripts/spa/layout/topBar.directive.js"></script>
+<script src="./scripts/spa/layout/sideBar.directive.js"></script>
+<script src="./scripts/spa/layout/customPager.directive.js"></script>
+<script src="./scripts/spa/account/loginCtrl.js"></script>
+<script src="./scripts/spa/account/registerCtrl.js"></script>
+<script src="./scripts/spa/home/rootCtrl.js"></script>
+<script src="./scripts/spa/home/indexCtrl.js"></script>
+<script src="./scripts/spa/masterData/masterDataCtrl.js"></script>
+<script src="./scripts/spa/masterData/chamber/chamberCtrl.js"></script>
+<script src="./scripts/spa/masterData/crate/crateCtrl.js"></script>
+<script src="./scripts/spa/masterData/measurement/measurementCtrl.js"></script>
+<script src="./scripts/spa/masterData/group/groupCtrl.js"></script>
+<script src="./scripts/spa/subgroup/subgoupCtrl.js"></script>
+<script src="./scripts/spa/store/storeCtrl.js"></script>
+<script src="./scripts/spa/purchase/purchaseCtrl.js"></script>
+<script src="./scripts/spa/purchase/reportCtrl.js"></script>
+<script src="./scripts/spa/crateEntry/crateEntryCtrl.js"></script>
+<script src="./scripts/spa/payment/paymentCtrl.js"></script>
+<script src="./scripts/spa/sale/saleCtrl.js"></script>
+<script src="./scripts/spa/storeGood/storeGoodCtrl.js"></script>
+<script src="./scripts/spa/crateEntry/crateReportCtrl.js"></script>
+<script src="./scripts/spa/sale/salePrintCtrl.js"></script>
+<script src="./scripts/spa/sale/reportCtrl.js"></script>
+<script src="./scripts/spa/reports/statementReportCtrl.js"></script>
+<script src="./scripts/spa/reports/balanceReportCtrl.js"></script>
+<script src="./scripts/spa/reports/stockReportCtrl.js"></script>
+<script src="./scripts/spa/payment/paymentReportCtrl.js"></script>
+    <!-- endbuild -->
+
+</html>

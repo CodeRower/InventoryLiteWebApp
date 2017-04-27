@@ -1,0 +1,121 @@
+﻿<div class="row">
+    <div class="input-group">
+        <div class="statementInputSearch">
+            <label class="control-label">Start Date</label>
+            <p class="input-group" style="margin:0px;">
+                <input type="text" class="form-control"
+                       name="dateEntered" datepicker-popup="{{format}}" ng-model="filterStatements.FromDate"
+                       is-open="startdatepicker.opened" datepicker-options="dateOptions"
+                       ng-required="true"
+                       datepicker-append-to-body="true"
+                       close-text="Close"
+                       validate-on="blur" required required-message="'Date is required'" />
+                <span class="input-group-btn excludeInPrint">
+                    <button type="button" class="btn btn-default" ng-click="openDatePicker($event, 1)" data-model="filterStatements.FromDate"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+
+        <div class="statementInputSearch" style="margin-left:10px; margin-right:10px;">
+            <label class="control-label">End Date</label>
+            <p class="input-group" style="margin:0px;">
+                <input type="text" class="form-control"
+                       name="dateEntered" datepicker-popup="{{format}}" ng-model="filterStatements.ToDate"
+                       is-open="enddatepicker.opened" datepicker-options="dateOptions"
+                       ng-required="true"
+                       datepicker-append-to-body="true"
+                       close-text="Close"
+                       validate-on="blur" required required-message="'Date is required'" />
+                <span class="input-group-btn excludeInPrint">
+                    <button type="button" class="btn btn-default" ng-click="openDatePicker($event, 2)" data-model="filterStatements.ToDate"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+
+        <div class="statementInputSearch">
+            <label class="control-label">Group Name</label>
+            <select class="form-control dropdown" name="groupName" ng-model="filterStatements.Group" ng-change="LoadSubGroup(filterStatements.Group)"
+                    ng-options="group.GroupName for group in groups track by group.ID"></select>
+        </div>
+
+        <div class="statementInputSearch" style="margin-left:10px; margin-right:10px;">
+            <label class="control-label">Name</label>
+            <select class="form-control dropdown" name="subName" ng-model="filterStatements.SubGroup"
+                    ng-options="subGroup.SubGroupName for subGroup in subGroups track by subGroup.ID"></select>
+        </div>
+
+
+        <div class="statementInputSearch">
+            <label class="control-label"></label>
+            <input type="checkbox" class="checkSize" id="crate" name="forCrate" ng-model="filterStatements.ForCrate" />
+            <label class="control-label" style="margin-left:10px;">For Crate</label>
+        </div>
+
+        <div class="input-group-btn excludeInPrint">
+            <button class="btn btn-primary" ng-click="search();"><i class="glyphicon glyphicon-search"></i></button>
+            <button class="btn btn-primary" ng-click="clearSearch();"><i class="glyphicon glyphicon-remove-sign"></i></button>
+            <button class="btn btn-primary" ng-if="Statements.length > 0" onclick="window.print()"><i class="glyphicon glyphicon-print"></i></button>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <h1 class="pull-left" style="margin:0;">Statement</h1>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-condensed shortMargin">
+                            <thead class="panel-heading" style="background: whitesmoke;">
+                                <tr>
+                                    <th class="shortPadding">Date</th>
+                                    <th class="shortPadding">Particular</th>
+                                    <th ng-if="filterStatements.ForCrate == true" class="shortPadding">Crate Size</th>
+                                    <th class="shortPadding">Credit</th>
+                                    <th class="shortPadding">Debit</th>
+                                    <th class="shortPadding">Balance</th>
+                                    <th class="shortPadding">Store</th>
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="item in Statements">
+
+                                <td class="shortPadding"><i>{{item.CreateDate | date:'mediumDate'}}</i></td>
+                                <td class="shortPadding"><i>{{item.Particular}}</i></td>
+                                <td ng-if="filterStatements.ForCrate == false" class="shortPadding"><i>{{item.IsCredit ? item.Amount : '--'}}</i></td>
+                                <td ng-if="filterStatements.ForCrate == false" class="shortPadding"><i>{{item.IsCredit ? '--' : item.Amount}}</i></td>
+                                <td ng-if="filterStatements.ForCrate == true" class="shortPadding"><i>{{item.CrateSize}}</i></td>
+                                <td ng-if="filterStatements.ForCrate == true" class="shortPadding"><i>{{item.IsCredit ? item.NoOfCrate : '--'}}</i></td>
+                                <td ng-if="filterStatements.ForCrate == true" class="shortPadding"><i>{{item.IsCredit ? '--' : item.NoOfCrate}}</i></td>
+                                <td class="shortPadding"><i>{{item.Balance}}</i></td>
+                                <td class="shortPadding"><i>{{item.Store}}</i></td>
+                            </tr>
+                            <tr ng-if="Statements.length > 0">
+                                <td class="shortPadding" colspan="{{filterStatements.ForCrate==true?3:2}}">Total</td>
+                                <td class="shortPadding">{{TotalCredit}}</td>
+                                <td class="shortPadding">{{TotalDebit}}</td>
+                            </tr>
+                            <tr ng-if="Statements.length > 0">
+                                <td class="shortPadding" colspan="{{filterStatements.ForCrate==true?3:2}}">Balance</td>
+                                <td class="shortPadding">{{RemainingAmount > 0 ? RemainingAmount : '--'}}</td>
+                                <td class="shortPadding">{{RemainingAmount > 0 ? '--': RemainingAmount * -1}}</td>
+                            </tr>
+                        </table>
+                        <div ng-if="loadingStatements">
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4" style=" text-align center;">
+                                <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Statements ...</label>
+                            </div>
+                            <div class="col-xs-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="text-center">
+                <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="search(page)"></custom-pager>
+            </div>
+        </div>
+    </div>
+</div>

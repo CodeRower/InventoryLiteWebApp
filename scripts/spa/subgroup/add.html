@@ -1,0 +1,105 @@
+﻿<div id="editSubgroupWrapper">
+    <hr>
+    <div class="row">
+     
+
+        <!-- edit form column -->
+        <div class="col-xs-12 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-plus"></i>
+                Add <strong>Sub Group</strong>. Make sure you fill all required fields.
+            </div>
+
+            <div class="header-body" style="float:right; width:350px; height: 80%; border: 1px solid black; right:35px">
+                <div ng-repeat="item in subGroups track by $index">
+                    <div ng-click="FillSubGroup($index)" style="cursor:pointer;">{{item.SubGroupName}}</div>
+                </div>
+            </div> 
+       
+
+            <form class="form-horizontal" role="form" novalidate angular-validator name="addSubGroupForm" angular-validator-submit="AddSubGroup()">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Group</label>
+                            <select class="form-control dropdown" name="group" ng-model="subgroup.Group" ng-change="LoadSubGroup(subgroup.Group)"
+                                    validate-on="change" required required-message="'Group is required'"
+                                    ng-options="group.GroupName for group in groups track by group.ID"></select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Sub Group Name</label>
+                            <input class="form-control" name="subGroup" type="text" ng-model="subgroup.SubGroupName"
+                                   validate-on="blur" required required-message="'Sub group Name is required'">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Account Number</label>
+                            <input class="form-control" name="accountNo" type="text" ng-model="subgroup.AccountNumber" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Address Line</label>
+                            <input class="form-control" name="add1" type="text" ng-model="subgroup.AddressLine1">
+                            <input class="form-control" name="add2" type="text" ng-model="subgroup.AddressLine2">
+                            <input class="form-control" name="add3" type="text" ng-model="subgroup.AddressLine3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Phone Number</label>
+                            <input class="form-control" name="phoneNo" type="text" ng-model="subgroup.PhoneNumber">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Opening Balance</label>
+                            <input class="form-control" name="openingBal" type="text" ng-model="subgroup.OpeningBalance" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4">
+                            <label class="control-label">Credit/Debit</label>
+                            <input class="form-control" name="creditDebit" type="text" ng-model="subgroup.CreditDebit" />
+                        </div>
+                    </div>
+                </div>
+  
+                <br/>
+                <div class="form-group col-xs-4">
+                    <label class="control-label"></label>
+                    <div class="">
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <span></span>
+                        <a class="btn btn-default" ng-href="#/">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+
+   
+</div>
