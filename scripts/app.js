@@ -175,6 +175,11 @@
                controller: "stockReportCtrl"
 
            })
+            .when("/pos", {
+                templateUrl: _templateBase +"/spa/pos/add.html",
+                controller: "posCtrl"
+
+            })
     }
 
     run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];

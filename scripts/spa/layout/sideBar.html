@@ -7,6 +7,9 @@
             <li class="nav-divider" ng-if="!userData.isUserLoggedIn"></li>
             <li><a ng-href="#/login" ng-if="!userData.isUserLoggedIn">Login<i class="fa fa-sign-in fa-fw pull-right"></i></a></li>
 
+            <li><a ng-href="#/pos">POS<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
+
+
             <li ng-if = "userData.hasRolePermission('Admin')"><a ng-href="#/register">Add User<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
             <li ng-if = "userData.hasRolePermission('Admin')"><a ng-href="#/master/addCrate">Crate<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
             <li ng-if = "userData.hasRolePermission('Admin')"><a ng-href="#/master/addMeasurement">Dozen<i class="fa fa-plus-circle fa-fw pull-right"></i></a></li>
