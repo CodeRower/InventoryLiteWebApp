@@ -80,8 +80,6 @@
 
         loadCategories();
         $scope.onCategorySelected = function (categoryId) {
-            alert(categoryId);
-
             apiService.get('/api/products/bycategory/' + categoryId, null,
                 function (response) {
                     $scope.productsForSelectedCategories = response.data;
@@ -91,6 +89,26 @@
                 });
 
         };
+        $scope.onProductSelected = function (product) {
+            $scope.Sale.SaleDetails.push({
+                ProductName: product.Name,
+                ProductId: product.Id,
+                Quantity: 1,
+                CostPerUnit: 10,
+                Type: "N",
+                //SettledPricePerUnit = item.TotalPrice / item.Quantity,
+                Discount: 0,
+                Tax: 0,//item.,
+                PricePerUnit: 0,
+                CreatedById: 1,
+                UpdatedById: 1,
+                LocalCreatedOn: new Date(),
+                LocalUpdatedOn: new Date(),
+                CreatedOn: new Date(),
+                UpdatedOn: new Date()
+            });
+            $scope.computeTotal();
+        };
 
 
         $scope.Stock = {
@@ -98,7 +116,7 @@
             Quantity: 0,
             CostPerUnit: 0,
             Type: "N",
-            //SettledPricePerUnit = item.TotalPrice / item.Quantity,
+            SettledPricePerUnit: 0,// item.TotalPrice / item.Quantity,
             Discount: 0,
             Tax: 0,//item.,
             PricePerUnit: 0,
@@ -109,22 +127,63 @@
             CreatedOn: new Date(),
             UpdatedOn: new Date()
         };
-        $scope.Sale = {
-            Id: "",
-            InvoiceNumber: "",
-            TAX: 0,
-            CustomerId: 0,
-            Discount: 0,
-            SaleDetails: [],
-            CreatedById: 1,
-            UpdatedById: 1,
-            LocalCreatedOn: new Date(),
-            LocalUpdatedOn: new Date(),
-            TotalAmount: 0,
-            TotalQuantity: 0,
-            TotalPrice: 0
+
+
+        function generateSale() {
+            apiService.get('/api/sale/generate', null,
+                function (response) {
+                debugger;
+                    $scope.Sale = {
+                        Id: response.data.Id,
+                        InvoiceNumber: response.data.InvoiceNumber,
+                        TAX: 0,
+                        CustomerId: 0,
+                        Discount: 0,
+                        SaleDetails: [],
+                        CreatedById: 1,
+                        UpdatedById: 1,
+                        LocalCreatedOn: new Date(),
+                        LocalUpdatedOn: new Date(),
+                        TotalAmount: 0,
+                        TotalQuantity: 0,
+                        TotalPrice: 0
+                    };;
+                },
+                function (response) {
+                    notificationService.displayError(response.data);
+                });
+        }
+
+        generateSale();
+        $scope.AddSale = function () {
+            debugger;
+            $scope.Sale.CustomerId = $scope.Sale.Customer.Id;
+            apiService.post("/api/sale/create", $scope.Sale, function (response) {
+                debugger;
+            }, function (err) {
+                debugger;
+            });
+        };
+        $scope.RemoveSaleDetail = function (idx) {
+            $scope.Sale.SaleDetails.splice(idx, 1);
+            $scope.computeTotal();
         };
 
+        $scope.computeTotal = function () {
+            $scope.Sale.TotalQuantity =0;
+            $scope.Sale.TotalPrice=0;
+            $scope.Sale.TotalAmount=0;
+
+            $scope.Sale.SaleDetails.forEach(function (saleDetail) {
+                saleDetail.SettledPricePerUnit = parseFloat(((saleDetail.CostPerUnit * saleDetail.Quantity) - saleDetail.Discount) / saleDetail.Quantity)
+
+                $scope.Sale.TotalQuantity = parseFloat($scope.Sale.TotalQuantity) + parseFloat(saleDetail.Quantity);
+                $scope.Sale.TotalPrice = parseFloat($scope.Sale.TotalPrice)+ (parseFloat(saleDetail.SettledPricePerUnit) * parseFloat(saleDetail.Quantity));
+
+
+            });
+            $scope.Sale.TotalAmount =   parseFloat($scope.Sale.TotalPrice) + parseFloat($scope.Sale.TAX) - parseFloat($scope.Sale.Discount);
+        };
 
         /*    $scope.states = [];
          $scope.cities = [];
